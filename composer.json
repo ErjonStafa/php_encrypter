@@ -1,0 +1,28 @@
+{
+    "name": "erjon/php_encrypter",
+    "authors": [
+        {
+            "name": "Erjon Stafa",
+            "email": "erjonstafa647@gmail.com"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^8.0|^9.0|^10.0|^11.0"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Erjon\\PhpEncrypter\\": "src"
+        },
+        "files": [
+            "src/helpers/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Erjon\\PhpEncrypter\\PhpEncrypterServiceProvider"
+            ]
+        }
+    }
+}
