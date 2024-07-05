@@ -24,6 +24,7 @@ class Decrypter
 
     private static function getRegularCode($fileContents)
     {
+        $fileContents = preg_replace('/\r/','' ,$fileContents);
         return preg_split("/(<\?php\n)/" ,self::getContentParts($fileContents)[0])[1];
     }
 
@@ -48,6 +49,10 @@ class Decrypter
     private static function getKey(): string
     {
         exec('cd ' . __DIR__ . ' && ./key', $out);
+
+        if (count($out) == 0) {
+            exec('cd ' . __DIR__ . ' && key', $out);
+        }
         return $out[0];
     }
 }

@@ -16,9 +16,15 @@ namespace Erjon\PhpEncrypter\Facades;
     {
         $fileNameLength = strlen($phpFile);
         self::$iv = substr($phpFile, $fileNameLength - 16 ,$fileNameLength - 1);
-        $fileContents = self::addDecryptionScript(file_get_contents($phpFile));
+        $fileContents = self::addDecryptionScript(self::getFileContents($phpFile));
         file_put_contents($phpFile, $fileContents);
     }
+
+     private static function getFileContents($phpFile)
+     {
+         $contents = file_get_contents($phpFile);
+         return preg_replace('/\r/', '', $contents);
+     }
 
     private static function addDecryptionScript($fileContents): string
     {
@@ -45,7 +51,11 @@ namespace Erjon\PhpEncrypter\Facades;
 
     private static function getKey(): string
     {
-        exec('cd ' . __DIR__ . ' && ./key', $out);
+        exec('cd ' . __DIR__ . ' && key', $out);
+
+        if (count($out) == 0) {
+            exec('cd ' . __DIR__ . ' && ./key', $out);
+        }
         return $out[0];
     }
 }

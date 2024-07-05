@@ -29,13 +29,16 @@ class EncryptFilesCommand extends Command
     public function handle()
     {
         try {
-            $directory = base_path(config('erjon_encrypter.paths')[2]);
-            $dir  = new \RecursiveDirectoryIterator($directory);
-            $flat  = new \RecursiveIteratorIterator($dir);
-            $files = new \RegexIterator($flat, '/\.php$/i');
-            foreach($files as $file) {
-                Encrypter::proceed($file);
+            foreach (config('erjon_encrypter.paths') as $directory) {
+                $directory = base_path($directory);
+                $dir  = new \RecursiveDirectoryIterator($directory);
+                $flat  = new \RecursiveIteratorIterator($dir);
+                $files = new \RegexIterator($flat, '/\.php$/i');
+                foreach($files as $file) {
+                    Encrypter::proceed($file);
+                }
             }
+
 
             $this->info('Files encrypted');
         } catch (\Exception $exception) {
