@@ -2,15 +2,15 @@
 
 namespace Erjon\PhpEncrypter\Support;
 
-class DecrypterFacade
+class Decrypter
 {
-    public const Decryption_Script = "return erjon_decrypt(__FILE__);\n";
+    const Decryption_Script = "return erjon_decrypt(__FILE__);\n";
 
-    private static string $iv;
+    private static $iv;
 
-    private static string $encryptionMethod = 'AES-256-CBC';
+    private static $encryptionMethod = 'AES-256-CBC';
 
-    private static int $options = 0;
+    private static $options = 0;
 
     public static function proceed($phpFile)
     {
@@ -48,7 +48,7 @@ class DecrypterFacade
             . openssl_decrypt(self::getContentToDecode($fileContents), self::$encryptionMethod, self::getKey(), self::$options, self::$iv);
     }
 
-    private static function getKey(): string
+    private static function getKey()
     {
         if(get_os() == 'Linux') {
             exec('cd ' . __DIR__ . ' && ./key', $out);

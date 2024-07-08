@@ -2,17 +2,17 @@
 
 namespace Erjon\PhpEncrypter\Support;
 
-final class EncrypterFacade
+final class Encrypter
 {
-    public const Decryption_Script = "return erjon_decrypt(__FILE__);\n";
+    const Decryption_Script = "return erjon_decrypt(__FILE__);\n";
 
-    private static string $iv;
+    private static $iv;
 
-    private static string $encryptionMethod = 'AES-256-CBC';
+    private static $encryptionMethod = 'AES-256-CBC';
 
-    private static int $options = 0;
+    private static $options = 0;
 
-    public static function proceed($phpFile): void
+    public static function proceed($phpFile)
     {
         $fileNameLength = strlen($phpFile);
         self::$iv = substr($phpFile, $fileNameLength - 16 ,$fileNameLength - 1);
@@ -26,7 +26,7 @@ final class EncrypterFacade
         return preg_replace('/\r/', '', $contents);
     }
 
-    private static function addDecryptionScript($fileContents): string
+    private static function addDecryptionScript($fileContents)
     {
         if (self::hasNameSpace($fileContents)) {
             $string = preg_split("/(<\?php\n)(\nnamespace (\S+)\n)/", $fileContents, -1, 2);
@@ -44,12 +44,12 @@ final class EncrypterFacade
 
 
 
-    private static function hasNameSpace($fileContents): bool
+    private static function hasNameSpace($fileContents)
     {
         return preg_match("/(<\?php\n)(\nnamespace (\S+)\n)/", $fileContents);
     }
 
-    private static function getKey(): string
+    private static function getKey()
     {
         if(get_os() == 'Linux') {
             exec('cd ' . __DIR__ . ' && ./key', $out);

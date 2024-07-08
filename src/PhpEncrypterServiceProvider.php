@@ -2,8 +2,8 @@
 
 namespace Erjon\PhpEncrypter;
 
-use Erjon\PhpEncrypter\Support\DecrypterFacade;
-use Erjon\PhpEncrypter\Support\EncrypterFacade;
+use Erjon\PhpEncrypter\Support\Decrypter;
+use Erjon\PhpEncrypter\Support\Encrypter;
 use Erjon\PhpEncrypter\Commands\EncryptFilesCommand;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,11 +25,11 @@ class PhpEncrypterServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('Encrypter', function (){
-            return new EncrypterFacade();
+            return new Encrypter();
         });
 
         $this->app->bind('Decrypter', function (){
-            return new DecrypterFacade();
+            return new Decrypter();
         });
     }
 }
