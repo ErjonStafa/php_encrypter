@@ -4,6 +4,8 @@ namespace Erjon\PhpEncrypter\Support;
 
 class DecrypterFacade
 {
+    public const Decryption_Script = "return erjon_decrypt(__FILE__);\n";
+
     private static string $iv;
 
     private static string $encryptionMethod = 'AES-256-CBC';
@@ -30,7 +32,7 @@ class DecrypterFacade
 
     private static function getContentParts($fileContents)
     {
-        return preg_split('/('. self::replaceSomeChars(Encrypter::Decryption_Script) .')+/', $fileContents, -1, 2);
+        return preg_split('/('. self::replaceSomeChars(self::Decryption_Script) .')+/', $fileContents, -1, 2);
     }
 
     private static function replaceSomeChars($string)
