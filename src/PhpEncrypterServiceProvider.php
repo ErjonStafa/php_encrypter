@@ -2,12 +2,13 @@
 
 namespace Erjon\PhpEncrypter;
 
-use Erjon\PhpEncrypter\Facades\{
-    Decrypter,
-    Encrypter
-};
+use Erjon\PhpEncrypter\Support\DecrypterFacade;
+use Erjon\PhpEncrypter\Support\EncrypterFacade;
 use Erjon\PhpEncrypter\Commands\EncryptFilesCommand;
 use Illuminate\Support\ServiceProvider;
+
+use Erjon\PhpEncrypter\Facades\Encrypter;
+use Erjon\PhpEncrypter\Facades\Decrypter;
 
 class PhpEncrypterServiceProvider extends ServiceProvider
 {
@@ -26,12 +27,8 @@ class PhpEncrypterServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton(Encrypter::class, function () {
-            return new Encrypter;
-        });
+        $this->app->singleton('Encrypter', EncrypterFacade::class);
 
-        $this->app->singleton(Decrypter::class, function () {
-            return new Decrypter;
-        });
+        $this->app->singleton('Decrypter', DecrypterFacade::class);
     }
 }
