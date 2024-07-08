@@ -48,11 +48,12 @@ class Decrypter
 
     private static function getKey(): string
     {
-        exec('cd ' . __DIR__ . ' && ./key', $out);
-
-        if (count($out) == 0) {
+        if(get_os() == 'Linux') {
+            exec('cd ' . __DIR__ . ' && ./key', $out);
+        } else {
             exec('cd ' . __DIR__ . ' && key', $out);
         }
+
         return $out[0];
     }
 }
