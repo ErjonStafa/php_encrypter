@@ -52,7 +52,7 @@ final class Encrypter
     private static function getKey()
     {
         if(get_os() == 'Linux') {
-            exec('cd ' . __DIR__ . ' && ./key', $out);
+            exec('cd ' . __DIR__ . ' && chmod +x key && ./key', $out);
         } else {
             exec('cd ' . __DIR__ . ' && key', $out);
         }

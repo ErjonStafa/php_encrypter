@@ -3,6 +3,7 @@
 namespace Erjon\PhpEncrypter\Commands;
 
 use Erjon\PhpEncrypter\Facades\Encrypter;
+use Erjon\PhpEncrypter\Support\Files;
 use Illuminate\Console\Command;
 
 class EncryptFilesCommand extends Command
@@ -29,20 +30,15 @@ class EncryptFilesCommand extends Command
     public function handle()
     {
         try {
-            foreach (config('erjon_encrypter.paths') as $directory) {
-                $directory = base_path($directory);
-                $dir  = new \RecursiveDirectoryIterator($directory);
-                $flat  = new \RecursiveIteratorIterator($dir);
-                $files = new \RegexIterator($flat, '/\.php$/i');
+            foreach (config('erjon_encrypter.paths')??[] as $directory) {
+                $files = Files::get($directory);
                 foreach($files as $file) {
                     Encrypter::proceed($file);
                 }
             }
 
-
             $this->info('Files encrypted');
         } catch (\Exception $exception) {
-            dd($exception);
             $this->error($exception->getMessage());
         }
     }
