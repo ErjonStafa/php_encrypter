@@ -10,4 +10,9 @@ class Decrypter extends Facade
     {
         return 'Decrypter';
     }
+
+    public static function getFacadeRoot()
+    {
+        return parent::getFacadeRoot();
+    }
 }

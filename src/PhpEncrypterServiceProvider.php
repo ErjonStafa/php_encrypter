@@ -30,6 +30,6 @@ class PhpEncrypterServiceProvider extends ServiceProvider
 
         $this->app->bind('Decrypter', function (){
             return new Decrypter();
-        });
+        }, true);
     }
 }

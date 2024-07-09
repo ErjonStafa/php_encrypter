@@ -10,18 +10,29 @@ class Files
         $dir  = new \RecursiveDirectoryIterator($directory);
         $flat  = new \RecursiveIteratorIterator($dir);
         $files = new \RegexIterator($flat, '/\.php$/i');
-        $files = self::removeKernelCommand($files);
-        return $files;
+        return self::removeKernelCommand($files);
     }
 
-    private static function removeKernelCommand($files)
+    private static function removeKernelCommand(\RegexIterator $files): array
     {
         $copyFiles = [];
+        $configPaths = self::configRealPath();
+
         foreach ($files as $file) {
-            if (! preg_match('/app\/Console\/Kernel\.php$/', $file)) {
+            if (! in_array($file->getRealPath(), $configPaths)) {
                 $copyFiles[] = $file;
             }
         }
+
         return $copyFiles;
+    }
+
+    private static function configRealPath(): array
+    {
+        $files = config('erjon_encrypter.excluded_files', []);
+
+        return array_map(function ($item) {
+            return base_path($item);
+        }, $files);
     }
 }
