@@ -1,12 +1,22 @@
 <?php
 
 return [
+    /**
+     * All the files are evaluated by base_path() function
+     *
+     * @see base_path()
+     */
     'paths' => [
+        // Massive encryption by paths. Please comment after encryption
         'app',
         'database',
         'routes'
     ],
+    'files' => [
+        // Encrypt specific files. Please comment after encryption
+    ],
     'excluded_files' => [
+        // Files to not include when encrypting
         'app/Console/Kernel.php',
         'app/Exceptions/Handler.php',
         'app/Http/Kernel.php',

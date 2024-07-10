@@ -30,11 +30,10 @@ class EncryptFilesCommand extends Command
     public function handle()
     {
         try {
-            foreach (config('erjon_encrypter.paths')??[] as $directory) {
-                $files = Files::get($directory);
-                foreach($files as $file) {
-                    Encrypter::proceed($file);
-                }
+            $files = Files::get();
+
+            foreach($files as $file) {
+                Encrypter::proceed($file);
             }
 
             $this->info('Files encrypted');
