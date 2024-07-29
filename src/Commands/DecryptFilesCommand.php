@@ -2,18 +2,18 @@
 
 namespace Erjon\PhpEncrypter\Commands;
 
-use Erjon\PhpEncrypter\Facades\Encrypter;
 use Erjon\PhpEncrypter\Support\Files;
+use Erjon\PhpEncrypter\Support\Original;
 use Illuminate\Console\Command;
 
-class EncryptFilesCommand extends Command
+class DecryptFilesCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'project:encrypt';
+    protected $signature = 'project:decrypt {key}';
 
     /**
      * The console command description.
@@ -30,11 +30,12 @@ class EncryptFilesCommand extends Command
     public function handle()
     {
         try {
+            $key = $this->argument('key');
             $files = Files::get();
-
-            Encrypter::proceed($files);
-
-            $this->info('Files encrypted');
+            foreach ($files as $file) {
+                Original::restore($file, $key);
+            }
+            $this->info('Files decrypted');
         } catch (\Exception $exception) {
             $this->error($exception->getMessage());
         }

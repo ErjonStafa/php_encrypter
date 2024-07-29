@@ -2,6 +2,8 @@
 
 namespace Erjon\PhpEncrypter\Support;
 
+use Erjon\PhpEncrypter\Support\Output;
+
 final class Encrypter
 {
     const Decryption_Script = "return erjon_decrypt(__FILE__);\n";
@@ -12,7 +14,15 @@ final class Encrypter
 
     private static $options = 0;
 
-    public static function proceed($phpFile)
+    public static function proceed($files)
+    {
+        foreach($files as $file) {
+            self::encryptFile($file);
+        }
+        (new Output)->error("Save this key: \n". self::getKey());
+    }
+
+    private static function encryptFile($phpFile)
     {
         $fileNameLength = strlen($phpFile);
         self::$iv = substr($phpFile, $fileNameLength - 16 ,$fileNameLength - 1);

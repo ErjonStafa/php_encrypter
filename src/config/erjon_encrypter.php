@@ -9,7 +9,6 @@ return [
     'paths' => [
         // Massive encryption by paths. Please comment after encryption
         'app',
-        'database',
         'routes'
     ],
     'files' => [

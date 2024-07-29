@@ -40,3 +40,8 @@ php artisan project:encrypt
 Only run this once
 
 ### That's it you can run your project like always
+
+### If you want to make changes to the project, you can decrypt the files with the following command
+````
+php artisan project:decrypt key_provided_in_the_encryption_command
+````

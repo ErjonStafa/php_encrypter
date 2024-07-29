@@ -2,6 +2,7 @@
 
 namespace Erjon\PhpEncrypter;
 
+use Erjon\PhpEncrypter\Commands\DecryptFilesCommand;
 use Erjon\PhpEncrypter\Support\Decrypter;
 use Erjon\PhpEncrypter\Support\Encrypter;
 use Erjon\PhpEncrypter\Commands\EncryptFilesCommand;
@@ -13,7 +14,8 @@ class PhpEncrypterServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                EncryptFilesCommand::class
+                EncryptFilesCommand::class,
+                DecryptFilesCommand::class
             ]);
         }
 
