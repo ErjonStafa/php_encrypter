@@ -19,6 +19,8 @@ class PhpEncrypterServiceProvider extends ServiceProvider
             ]);
         }
 
+        $this->mergeConfigFrom(__DIR__. '/config/erjon_encrypter.php', 'erjon_encrypter');
+
         $this->publishes([
             __DIR__ . '/config/erjon_encrypter.php' => config_path('erjon_encrypter.php')
         ], 'erjon_encrypter');
@@ -27,11 +29,11 @@ class PhpEncrypterServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('Encrypter', function (){
-            return new Encrypter();
+            return new Encrypter;
         });
 
         $this->app->bind('Decrypter', function (){
-            return new Decrypter();
-        }, true);
+            return new Decrypter;
+        });
     }
 }

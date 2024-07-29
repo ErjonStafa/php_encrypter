@@ -20,7 +20,7 @@ class DecryptFilesCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Encrypt the files of your project';
+    protected $description = 'Decrypt the files of your project';
 
     /**
      * Execute the console command.
