@@ -13,7 +13,7 @@ class DecryptFilesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'project:decrypt {key}';
+    protected $signature = 'project:decrypt';
 
     /**
      * The console command description.
@@ -30,7 +30,7 @@ class DecryptFilesCommand extends Command
     public function handle()
     {
         try {
-            $key = $this->argument('key');
+            $key = $this->ask('What is the key?');
             $files = Files::get();
             foreach ($files as $file) {
                 Original::restore($file, $key);

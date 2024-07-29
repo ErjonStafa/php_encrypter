@@ -36,7 +36,7 @@ class Files
 
         foreach ($files as $file) {
             if (! in_array($file->getRealPath(), $configExcludedRealPath)) {
-                $copyFiles[] = $file;
+                $copyFiles[] = $file->getRealPath();
             }
         }
 
@@ -48,7 +48,7 @@ class Files
         $files = config('erjon_encrypter.paths', []);
 
         return array_map(function ($item) {
-            return base_path($item);
+            return str_replace('/', '\\', base_path($item));
         }, $files);
     }
 
@@ -57,7 +57,7 @@ class Files
         $files = config('erjon_encrypter.files', []);
 
         return array_map(function ($item) {
-            return base_path($item);
+            return str_replace('/', '\\', base_path($item));
         }, $files);
     }
 
@@ -66,7 +66,7 @@ class Files
         $files = config('erjon_encrypter.excluded_files', []);
 
         return array_map(function ($item) {
-            return base_path($item);
+            return str_replace('/', '\\', base_path($item));
         }, $files);
     }
 }
